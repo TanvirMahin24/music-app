@@ -1,0 +1,14 @@
+.wrapper {
+  background-color: #8ec5fc;
+  background-image: linear-gradient(62deg, #8ec5fc 0%, #dcc3fc 100%);
+  min-height: 100vh;
+}
+.spotify__logo {
+  max-width: 90px;
+}
+.crd {
+  width: 20rem !important;
+}
+.music__img {
+  width: 200px;
+}

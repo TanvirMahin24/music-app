@@ -1,19 +1,19 @@
-import { AUTH_STATUS_CHANGED } from "../Types";
+import { GET_INITIAL_SONG } from "../Types";
 
 const initialState = {
-  auth: false,
+  song: null,
 };
 
-const authReducer = (
+const songReducer = (
   state = initialState,
   action: { type: any; payload: any }
 ) => {
   const { type, payload } = action;
   switch (type) {
-    case AUTH_STATUS_CHANGED:
+    case GET_INITIAL_SONG:
       return {
         ...state,
-        auth: true,
+        song: { ...payload },
       };
 
     default:
@@ -21,4 +21,4 @@ const authReducer = (
   }
 };
 
-export default authReducer;
+export default songReducer;

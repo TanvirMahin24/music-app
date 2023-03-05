@@ -1,5 +1,4 @@
 import { useKeycloak } from "@react-keycloak/web";
-import { connect } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 import LoadingComponent from "../components/shared/LoadingComponent/LoadingComponent";
 
@@ -15,10 +14,4 @@ const PrivateOutlet = ({}) => {
   );
 };
 
-const mapStateToProps = (state: {
-  auth: { isAuthenticated: boolean | null };
-}) => ({
-  auth: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, null)(PrivateOutlet);
+export default PrivateOutlet;
