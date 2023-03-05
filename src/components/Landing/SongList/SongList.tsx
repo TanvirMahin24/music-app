@@ -9,13 +9,13 @@ const SongList = ({ songs }: any) => {
       <Container>
         {songs === null ? (
           <LoadingComponent />
-        ) : songs?.tracks?.length === 0 ? (
+        ) : songs?.length === 0 ? (
           <div className="pt-5 text-center">
             <span className="d-block text-white fw-bold">No Song Found!</span>
           </div>
         ) : (
           <Row xs={5}>
-            {songs?.tracks.map((song: any) => (
+            {songs?.map((song: any) => (
               <SongCard key={song.key} {...song} id={song.key} />
             ))}
           </Row>

@@ -11,7 +11,7 @@ const LandingPage = ({ getInitialSongs, songs }: any) => {
   return (
     <div>
       <Layout title="Home">
-        <SongList songs={songs} />
+        <SongList songs={songs?.tracks} />
       </Layout>
     </div>
   );
