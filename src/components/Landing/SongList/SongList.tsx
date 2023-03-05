@@ -1,5 +1,4 @@
 import { Container, Row } from "react-bootstrap";
-import { connect } from "react-redux";
 import LoadingComponent from "../../shared/LoadingComponent/LoadingComponent";
 import SongCard from "./SongCard/SongCard";
 import styles from "./SongList.module.css";
@@ -10,14 +9,14 @@ const SongList = ({ songs }: any) => {
       <Container>
         {songs === null ? (
           <LoadingComponent />
-        ) : songs?.tracks.length === 0 ? (
+        ) : songs?.tracks?.length === 0 ? (
           <div className="pt-5 text-center">
             <span className="d-block text-white fw-bold">No Song Found!</span>
           </div>
         ) : (
           <Row xs={5}>
             {songs?.tracks.map((song: any) => (
-              <SongCard {...song} />
+              <SongCard key={song.key} {...song} id={song.key} />
             ))}
           </Row>
         )}
@@ -26,8 +25,4 @@ const SongList = ({ songs }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  songs: state.song.song,
-});
-
-export default connect(mapStateToProps, null)(SongList);
+export default SongList;

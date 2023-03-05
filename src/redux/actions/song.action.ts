@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE_URL } from "../../constants/URL";
 import setAuthToken from "../../utils/setAuthToken";
 import { AppDispatch } from "../Store";
-import { GET_INITIAL_SONG } from "../Types";
+import { FAV_SONGS, GET_INITIAL_SONG } from "../Types";
 import { recomendations } from "../../demo/recomendation";
 
 // AUTH USER DATA ACTION
@@ -26,4 +26,11 @@ export const getInitialSongs = (page: number) => async (dispatch: any) => {
     console.log(error);
     return false;
   }
+};
+
+export const favSong = (data: any) => async (dispatch: any) => {
+  dispatch({
+    type: FAV_SONGS,
+    payload: data,
+  });
 };

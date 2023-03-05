@@ -1,8 +1,13 @@
-import styles from "./SongCard.module.css";
 import { Card, Col } from "react-bootstrap";
-import { AiOutlineStar } from "react-icons/ai";
+import { AiFillStar, AiOutlinePlus, AiOutlineStar } from "react-icons/ai";
+import { connect } from "react-redux";
+import { favSong } from "../../../../redux/actions/song.action";
+import styles from "./SongCard.module.css";
 
-const SongCard = ({ title, subtitle, images }: any) => {
+const SongCard = ({ title, subtitle, images, id, favSong, favorite }: any) => {
+  const handleFavorite = (data: any) => {
+    favSong(data);
+  };
   return (
     <Col className="py-3">
       <Card className="h-100">
@@ -12,16 +17,25 @@ const SongCard = ({ title, subtitle, images }: any) => {
             background: `url(${images.background})`,
           }}
         >
-          <div className={styles.star}>
-            <AiOutlineStar />
+          <div
+            className={styles.star}
+            onClick={() => handleFavorite({ title, images, subtitle, key: id })}
+          >
+            {favorite?.filter((fav: any) => fav.key === id).length > 0 ? (
+              <AiFillStar color="#eeff05" />
+            ) : (
+              <AiOutlineStar />
+            )}
           </div>
-          <div className={styles.inner__action}>
-            {/* <button>Playlist</button> */}
-          </div>
+
           <div className={styles.inner__content}>
             <span className="d-block fw-bold">{title}</span>
             <span className="d-block fs-6">{subtitle}</span>
-            {/* <span className="d-block">{title}</span> */}
+            <div className="d-flex justify-content-center">
+              <button className={styles.btn}>
+                <AiOutlinePlus /> Add to playlist
+              </button>
+            </div>
           </div>
         </Card.Body>
       </Card>
@@ -29,4 +43,8 @@ const SongCard = ({ title, subtitle, images }: any) => {
   );
 };
 
-export default SongCard;
+const mapStateToProps = (state: any) => ({
+  favorite: state.song.favorite,
+});
+
+export default connect(mapStateToProps, { favSong })(SongCard);

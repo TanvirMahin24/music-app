@@ -1,7 +1,10 @@
-import { GET_INITIAL_SONG } from "../Types";
+import { FAV_SONGS, GET_INITIAL_SONG } from "../Types";
+
+let favs = localStorage.getItem("music-app-fav");
 
 const initialState = {
   song: null,
+  favorite: favs ? JSON.parse(favs) : [],
 };
 
 const songReducer = (
@@ -14,6 +17,25 @@ const songReducer = (
       return {
         ...state,
         song: { ...payload },
+      };
+
+    case FAV_SONGS:
+      console.log(payload);
+      let finalData = [];
+      if (
+        state.favorite?.filter((fav: any) => fav.key === payload.key).length > 0
+      ) {
+        finalData = state.favorite?.filter(
+          (fav: any) => fav.key !== payload.key
+        );
+      } else {
+        finalData = [...state.favorite, payload];
+      }
+
+      localStorage.setItem("music-app-fav", JSON.stringify(finalData));
+      return {
+        ...state,
+        favorite: finalData,
       };
 
     default:
