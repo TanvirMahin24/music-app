@@ -1,5 +1,6 @@
 import styles from "./SongCard.module.css";
 import { Card, Col } from "react-bootstrap";
+import { AiOutlineStar } from "react-icons/ai";
 
 const SongCard = ({ title, subtitle, images }: any) => {
   return (
@@ -11,7 +12,17 @@ const SongCard = ({ title, subtitle, images }: any) => {
             background: `url(${images.background})`,
           }}
         >
-          <div className={styles.inner__content}>{title}</div>
+          <div className={styles.star}>
+            <AiOutlineStar />
+          </div>
+          <div className={styles.inner__action}>
+            {/* <button>Playlist</button> */}
+          </div>
+          <div className={styles.inner__content}>
+            <span className="d-block fw-bold">{title}</span>
+            <span className="d-block fs-6">{subtitle}</span>
+            {/* <span className="d-block">{title}</span> */}
+          </div>
         </Card.Body>
       </Card>
     </Col>

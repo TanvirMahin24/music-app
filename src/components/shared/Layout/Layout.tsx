@@ -30,11 +30,11 @@ const Layout = ({ children, title }: any) => {
           >
             <div className="d-flex justify-content-between align-items-center w-100">
               <Link
-                to="/"
+                to="/home"
                 className="d-flex align-items-center py-3 text-decoration-none text-dark"
               >
                 {/* <img src={logo} alt="" className={styles.logo} /> */}
-                {/* <span className="d-block fs-4 ">Angular Esports</span> */}
+                <span className="d-block fs-4 ">Music App</span>
               </Link>
               <div
                 className={`${styles.ham}  ms-auto`}
@@ -53,7 +53,7 @@ const Layout = ({ children, title }: any) => {
               </NavLink>
             </div>
             <div className={styles.nav}>
-              <NavLink to="/grade" className={styles.nav__item}>
+              <NavLink to="/search" className={styles.nav__item}>
                 <span className={styles.icon}>
                   <BiSearchAlt />
                 </span>
@@ -61,7 +61,7 @@ const Layout = ({ children, title }: any) => {
               </NavLink>
             </div>
             <div className={styles.nav}>
-              <NavLink to="/admin/shift" className={styles.nav__item}>
+              <NavLink to="/favourites" className={styles.nav__item}>
                 <span className={styles.icon}>
                   <BsFillBookmarkStarFill />
                 </span>
@@ -69,7 +69,7 @@ const Layout = ({ children, title }: any) => {
               </NavLink>
             </div>
             <div className={styles.nav}>
-              <NavLink to="/admin/batch" className={styles.nav__item}>
+              <NavLink to="/playlists" className={styles.nav__item}>
                 <span className={styles.icon}>
                   <MdLibraryMusic />
                 </span>
@@ -85,7 +85,7 @@ const Layout = ({ children, title }: any) => {
               </div>
             </div>
           </Col>
-          <Col md={10} className="bg-light">
+          <Col md={10} className={`${styles.inner}`}>
             <div className="d-flex justify-content-end align-items-center py-3">
               <div
                 className={`${styles.ham}  me-auto`}
@@ -93,11 +93,11 @@ const Layout = ({ children, title }: any) => {
               >
                 <GoThreeBars />
               </div>
-              {title ? (
+              {/* {title ? (
                 <h3 className="me-auto ps-4 fs-3 my-auto">{title}</h3>
               ) : (
                 <></>
-              )}
+              )} */}
             </div>
             <Container>{children}</Container>
           </Col>
