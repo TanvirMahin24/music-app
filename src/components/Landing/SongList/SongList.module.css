@@ -1,0 +1,5 @@
+.wrapper {
+  background-color: #8ec5fc;
+  background-image: linear-gradient(62deg, #8ec5fc 0%, #dcc3fc 100%);
+  min-height: calc(100vh - 56px);
+}

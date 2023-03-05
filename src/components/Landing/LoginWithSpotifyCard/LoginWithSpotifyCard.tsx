@@ -15,7 +15,7 @@ const LoginWithSpotifyCard = () => {
       <a
         href={`https://accounts.spotify.com/authorize?client_id=65b7468d3e4244bab3351c1a68a1b0b4&redirect_uri=${encodeURI(
           "http://localhost:3000/home"
-        )}&response_type=token`}
+        )}&response_type=code`}
         className={commonStyles.btn}
       >
         Login with Spotify

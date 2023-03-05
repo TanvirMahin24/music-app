@@ -1,36 +1,23 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import LoginWithSpotifyCard from "../../components/Landing/LoginWithSpotifyCard/LoginWithSpotifyCard";
-import { authSpotify } from "../../redux/actions/auth.action";
+import NavbarCustom from "../../components/Landing/Navbar/Navbar";
+import SongList from "../../components/Landing/SongList/SongList";
+import Layout from "../../components/shared/Layout/Layout";
 import { getInitialSongs } from "../../redux/actions/song.action";
-import setAuthToken from "../../utils/setAuthToken";
 
-const LandingPage = ({ getInitialSongs, authSpotify, songs, auth }: any) => {
+const LandingPage = ({ getInitialSongs }: any) => {
   useEffect(() => {
-    const hash = window.location.hash;
-    let token: any = localStorage.getItem("music-app-token");
-    if (!token && hash) {
-      token = hash
-        ?.substring(1)
-        .split("&")
-        ?.find((elem) => elem.startsWith("access_token"))
-        ?.split("=")[1];
-
-      window.location.hash = "";
-      localStorage.setItem("music-app-token", token);
-    }
     getInitialSongs(1);
-    authSpotify();
-    setAuthToken(token);
   }, []);
-  return <div>{!auth ? <LoginWithSpotifyCard /> : <span>Loggedin</span>}</div>;
+  return (
+    <div>
+      <Layout title="Home">
+        <SongList />
+      </Layout>
+    </div>
+  );
 };
 
-const mapStateToProps = (state: any) => ({
-  songs: state.song.song,
-  auth: state.auth.auth,
-});
-
-export default connect(mapStateToProps, { getInitialSongs, authSpotify })(
-  LandingPage
-);
+export default connect(null, {
+  getInitialSongs,
+})(LandingPage);
