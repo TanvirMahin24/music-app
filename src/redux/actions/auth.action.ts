@@ -84,6 +84,7 @@ export const registerAction =
     } catch (error: any) {
       dispatch({
         type: REGISTER_FAIL,
+        payload: undefined,
       });
       toast.error(error.response.data.message);
       return false;
@@ -97,12 +98,14 @@ export const logoutAction = () => async (dispatch: AppDispatch) => {
     //setAuthToken();
     dispatch({
       type: LOGOUT_SUCCESS,
+      payload: undefined,
     });
     toast.success("Logout Successfully");
     return true;
   } catch (error: any) {
     dispatch({
       type: LOGOUT_FAIL,
+      payload: undefined,
     });
     toast.error(error.response.data.message);
     return false;
@@ -126,6 +129,7 @@ export const authUserAction = () => async (dispatch: AppDispatch) => {
   } catch (error) {
     dispatch({
       type: AUTH_USER_LOAD_ERROR,
+      payload: undefined,
     });
     return false;
   }

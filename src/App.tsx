@@ -1,21 +1,28 @@
-import { Route, Routes } from "react-router-dom";
-import ComingSoonPage from "./views/ComingSoonPage/ComingSoonPage";
+import { useKeycloak } from "@react-keycloak/web";
+import { Navigate, Route, Routes } from "react-router-dom";
+import LoadingComponent from "./components/shared/LoadingComponent/LoadingComponent";
+import PrivateOutlet from "./utils/PrivateOutlet";
 import LandingPage from "./views/LandingPage/LandingPage";
+import LoginPage from "./views/LoginPage/LoginPage";
 
 function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="*" element={<ComingSoonPage />} />
-        <Route path="/" element={<LandingPage />} />
+  const { initialized } = useKeycloak();
 
-        <Route path="/*" element={<PrivateOutlet />}>
-          <>
-            <Route path="dashboard" element={<LandingPage />} />
-          </>
-        </Route>
-      </Routes>
-    </div>
+  if (!initialized) {
+    return <LoadingComponent />;
+  }
+
+  return (
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/*" element={<PrivateOutlet />}>
+        <>
+          <Route path="home" element={<LandingPage />} />
+          <Route path="dashboard" element={<LandingPage />} />
+        </>
+      </Route>
+      <Route path="*" element={<Navigate to={"/home"} />} />
+    </Routes>
   );
 }
 
