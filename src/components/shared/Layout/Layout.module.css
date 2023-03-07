@@ -1,8 +1,9 @@
 .wrapper {
   background-color: #8ec5fc !important;
-  background-image: linear-gradient(62deg, #8ec5fc 0%, #dcc3fc 100%) !important;
+  background: var(--light) !important;
   height: 100vh;
   position: fixed;
+  box-shadow: 15px 15px 30px 15px #0000006c;
 }
 
 .logo {

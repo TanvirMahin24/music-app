@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./Layout.module.css";
+import commonStyles from "../../../common.module.css";
+import PlaylistSidebar from "./PlaylistSidebar/PlaylistSidebar";
 
 const Layout = ({ children, title }: any) => {
   const { keycloak } = useKeycloak();
@@ -21,7 +23,8 @@ const Layout = ({ children, title }: any) => {
     toast.success("Logged out!");
   };
   return (
-    <div>
+    <div className="position-relative">
+      <PlaylistSidebar />
       <Container fluid>
         <Row className="position-relative">
           <Col
@@ -34,7 +37,11 @@ const Layout = ({ children, title }: any) => {
                 className="d-flex align-items-center py-3 text-decoration-none text-dark"
               >
                 {/* <img src={logo} alt="" className={styles.logo} /> */}
-                <span className="d-block fs-4 ">Music App</span>
+                <span
+                  className={`d-block fs-4 fw-bold ${commonStyles.text_gradient}`}
+                >
+                  Music App
+                </span>
               </Link>
               <div
                 className={`${styles.ham}  ms-auto`}

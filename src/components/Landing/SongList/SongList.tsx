@@ -14,7 +14,7 @@ const SongList = ({ songs }: any) => {
             <span className="d-block text-white fw-bold">No Song Found!</span>
           </div>
         ) : (
-          <Row xs={5}>
+          <Row md={5} xs={2}>
             {songs?.map((song: any) => (
               <SongCard key={song.key} {...song} id={song.key} />
             ))}
