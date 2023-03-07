@@ -21,7 +21,7 @@
 }
 
 .btn:hover {
-  background-position: right center; /* change the direction of the change here */
+  background-position: right center;
   color: #fff;
   text-decoration: none;
   cursor: pointer;
@@ -30,5 +30,6 @@
 .text_gradient {
   background: -webkit-linear-gradient(#007bf7, #6f00ff) !important;
   -webkit-background-clip: text !important;
+  background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
