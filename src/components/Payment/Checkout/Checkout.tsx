@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import commonStyles from "../../../common.module.css";
 
 import { AiOutlineCreditCard } from "react-icons/ai";
 
@@ -43,25 +44,24 @@ const Checkout = () => {
   };
 
   if (stripeError) alert(stripeError);
+  //   if (pro) {
+  //     return <></>;
+  //   }
 
   return (
     <div className="checkout">
-      <h1>Become a Pro</h1>
       <p>You need to become a pro to add more playlists!</p>
       <button
-        className="checkout-button"
+        className={commonStyles.btn}
         onClick={redirectToCheckout}
         disabled={isLoading}
       >
-        <div className="grey-circle">
-          <div className="purple-circle">
-            <span className="">
-              <AiOutlineCreditCard />
-            </span>
-          </div>
-        </div>
-        <div className="text-container">
-          <p className="text">{isLoading ? "Loading..." : "Buy"}</p>
+        <div className="d-flex justify-content-center align-items-center">
+          <span className="me-2">
+            <AiOutlineCreditCard />
+          </span>
+
+          <span>{isLoading ? "Loading..." : "Become Pro"}</span>
         </div>
       </button>
     </div>

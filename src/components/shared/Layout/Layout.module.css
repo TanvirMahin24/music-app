@@ -86,7 +86,9 @@
   right: 0;
   position: absolute;
 }
-
+.pro {
+  font-size: 12px;
+}
 @media screen and (max-width: 768px) {
   .wrapper {
     display: block;

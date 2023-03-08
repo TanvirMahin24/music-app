@@ -1,1 +1,1 @@
-export const BASE_URL: string = "https://api.spotify.com/v1";
+export const BASE_URL: string = "https://shazam.p.rapidapi.com";

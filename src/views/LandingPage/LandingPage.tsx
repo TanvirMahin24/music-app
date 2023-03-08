@@ -6,12 +6,14 @@ import { getInitialSongs } from "../../redux/actions/song.action";
 
 const LandingPage = ({ getInitialSongs, songs }: any) => {
   useEffect(() => {
-    getInitialSongs(1);
-  }, [getInitialSongs]);
+    if (!songs) {
+      getInitialSongs(1);
+    }
+  }, []);
   return (
     <div>
       <Layout title="Home">
-        <SongList songs={songs?.tracks} />
+        {songs ? <SongList songs={songs?.tracks} /> : <></>}
       </Layout>
     </div>
   );

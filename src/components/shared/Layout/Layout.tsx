@@ -14,7 +14,7 @@ import styles from "./Layout.module.css";
 import commonStyles from "../../../common.module.css";
 import PlaylistSidebar from "./PlaylistSidebar/PlaylistSidebar";
 
-const Layout = ({ children, title }: any) => {
+const Layout = ({ children, title, pro }: any) => {
   const { keycloak } = useKeycloak();
   const [show, setShow] = React.useState(false);
 
@@ -38,9 +38,10 @@ const Layout = ({ children, title }: any) => {
               >
                 {/* <img src={logo} alt="" className={styles.logo} /> */}
                 <span
-                  className={`d-block fs-4 fw-bold ${commonStyles.text_gradient}`}
+                  className={`d-block fs-4 fw-bold ${commonStyles.text_gradient} d-flex align-items-end`}
                 >
-                  Music App
+                  Music App{" "}
+                  {pro ? <span className={`${styles.pro}`}>PRO</span> : <></>}
                 </span>
               </Link>
               <div
@@ -114,4 +115,8 @@ const Layout = ({ children, title }: any) => {
   );
 };
 
-export default connect(null, null)(Layout);
+const mapStateToProps = (state: any) => ({
+  pro: state.playlist.pro,
+});
+
+export default connect(mapStateToProps, null)(Layout);

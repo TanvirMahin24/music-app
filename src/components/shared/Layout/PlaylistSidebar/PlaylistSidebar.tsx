@@ -17,6 +17,7 @@ const PlaylistSidebar = ({
   playlistSidebarToggle,
   createPlaylist,
   savePlaylist,
+  pro,
 }: any) => {
   const [selectedPlaylist, setSelectedPlaylist] = useState<number>(-1);
   const [showCreate, setShowCreate] = useState<boolean>(false);
@@ -107,7 +108,9 @@ const PlaylistSidebar = ({
           ))}
         </ListGroup>
         <hr />
-        {showCreate ? (
+        {showCreate && !pro ? (
+          <Checkout />
+        ) : showCreate && pro ? (
           <Form onSubmit={submitHandeler}>
             <Form.Group className="mb-3" controlId="name">
               <Form.Label>Playlist Name</Form.Label>
@@ -140,18 +143,19 @@ const PlaylistSidebar = ({
             ) : (
               <></>
             )}
+
             <button onClick={showCreateHandeler} className={styles.btn}>
               Create New Playlist
             </button>
           </div>
         )}
-        <Checkout />
       </Container>
     </div>
   );
 };
 const mapStateToProps = (state: any) => ({
   playlist: state.playlist,
+  pro: state.playlist.pro,
 });
 export default connect(mapStateToProps, {
   playlistSidebarToggle,

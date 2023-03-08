@@ -22,7 +22,7 @@ const songReducer = (
     case GET_SEARCH_SONG:
       return {
         ...state,
-        search: { ...payload },
+        search: payload,
       };
 
     case FAV_SONGS:

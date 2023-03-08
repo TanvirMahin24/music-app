@@ -8,7 +8,7 @@ const SearchPage = ({ songs }: any) => {
     <div>
       <Layout title="Search">
         <Search />
-        <SongList songs={songs?.tracks} />
+        {songs ? <SongList songs={songs} /> : <></>}
       </Layout>
     </div>
   );

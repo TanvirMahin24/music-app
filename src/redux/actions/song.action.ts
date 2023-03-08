@@ -7,19 +7,22 @@ import { recomendations } from "../../demo/recomendation";
 
 export const getInitialSongs = (page: number) => async (dispatch: any) => {
   try {
-    // const res = await axios.get(
-    //   `${BASE_URL}/recommendations?seed_genres=classical,country&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_tracks=0c6xIDDpzE81m2q797ordA`
-    // );
-
-    // dispatch({
-    //   type: GET_INITIAL_SONG,
-    //   payload: res.data,
-    // });
+    const config = {
+      headers: {
+        "X-RapidAPI-Key": "9cbef1dfadmshfaf5867bed0820dp1f3051jsnade0ccb329ed",
+        "X-RapidAPI-Host": "shazam.p.rapidapi.com",
+      },
+    };
+    const res = await axios.get(
+      `${BASE_URL}/songs/list-recommendations?key=484129036&locale=en-US`,
+      config
+    );
 
     dispatch({
       type: GET_INITIAL_SONG,
-      payload: recomendations,
+      payload: res.data,
     });
+
     return true;
   } catch (error: any) {
     console.log(error);
@@ -29,19 +32,24 @@ export const getInitialSongs = (page: number) => async (dispatch: any) => {
 
 export const getSearchSongs = (text: string) => async (dispatch: any) => {
   try {
-    // const res = await axios.get(
-    //   `${BASE_URL}/recommendations?seed_genres=classical,country&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_tracks=0c6xIDDpzE81m2q797ordA`
-    // );
+    const config = {
+      headers: {
+        "X-RapidAPI-Key": "9cbef1dfadmshfaf5867bed0820dp1f3051jsnade0ccb329ed",
+        "X-RapidAPI-Host": "shazam.p.rapidapi.com",
+      },
+    };
 
-    // dispatch({
-    //   type: GET_INITIAL_SONG,
-    //   payload: res.data,
-    // });
-
+    const res = await axios.get(
+      `${BASE_URL}/search?term=${text}&limit=20`,
+      config
+    );
+    const list = res.data.tracks.hits.map((track: any) => track.track);
+    console.log(list);
     dispatch({
       type: GET_SEARCH_SONG,
-      payload: recomendations,
+      payload: list,
     });
+
     return true;
   } catch (error: any) {
     console.log(error);
