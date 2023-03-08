@@ -6,6 +6,7 @@ import {
 } from "../Types";
 
 let pls = localStorage.getItem("music-app-pl");
+let pro = localStorage.getItem("music-app-pro");
 
 const initialState = {
   playlist: pls
@@ -13,6 +14,7 @@ const initialState = {
     : [{ name: "Your Playlist", tracks: [], id: 1 }],
   sidebar_active: false,
   selected_track: null,
+  pro: pro ? true : false,
 };
 
 const setPlToLocalStorage = (data: any) => {
@@ -51,7 +53,6 @@ const playlistReducer = (
           pl.id === payload.id ? { ...payload } : pl
         ),
       ];
-      console.log(editedPL);
       setPlToLocalStorage(editedPL);
       return {
         ...state,

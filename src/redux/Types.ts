@@ -1,6 +1,9 @@
 export const GET_INITIAL_SONG = "GET_INITIAL_SONG";
+export const GET_SEARCH_SONG = "GET_SEARCH_SONG";
 export const FAV_SONGS = "FAV_SONGS";
+
 export const CREATE_PLAYLIST = "CREATE_PLAYLIST";
 export const DELETE_PLAYLIST = "DELETE_PLAYLIST";
 export const EDIT_PLAYLIST = "EDIT_PLAYLIST";
+
 export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR";

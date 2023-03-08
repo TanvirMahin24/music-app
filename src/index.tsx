@@ -10,6 +10,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import keycloakConf from "./utils/keyclock";
 import * as serviceWorker from "./serviceWorker";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -30,6 +32,7 @@ root.render(
       <Provider store={store}>
         <BrowserRouter>
           <App />
+          <ToastContainer />
         </BrowserRouter>
       </Provider>
     </React.StrictMode>

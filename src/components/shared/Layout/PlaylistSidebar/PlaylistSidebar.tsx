@@ -8,6 +8,7 @@ import {
   playlistSidebarToggle,
   savePlaylist,
 } from "../../../../redux/actions/playlist.action";
+import Checkout from "../../../Payment/Checkout/Checkout";
 import styles from "./PlaylistSidebar.module.css";
 import TrackCard from "./TrackCard/TrackCard";
 
@@ -43,14 +44,27 @@ const PlaylistSidebar = ({
 
   const savePlaylistHandeler = () => {
     if (selectedPlaylist !== -1) {
-      savePlaylist(
-        playlist?.playlist
-          .filter((pl: any) => pl.id === selectedPlaylist)
-          .map((pl: any) => ({
-            ...pl,
-            tracks: [...pl.tracks, playlist.selected_track],
-          }))
+      let selectedPL = playlist?.playlist.filter(
+        (pl: any) => pl.id === selectedPlaylist
       );
+      if (
+        selectedPL &&
+        selectedPL[0] &&
+        selectedPL[0].tracks.filter(
+          (track: any) => track.id === playlist.selected_track.id
+        ).length > 0
+      ) {
+        toast.error("This track is already added!");
+        return;
+      }
+      savePlaylist(
+        selectedPL.map((pl: any) => ({
+          ...pl,
+          tracks: [...pl.tracks, playlist.selected_track],
+        }))[0]
+      );
+      toast.success("Track aded to playlist!");
+      playlistSidebarToggle();
     }
   };
   return (
@@ -131,6 +145,7 @@ const PlaylistSidebar = ({
             </button>
           </div>
         )}
+        <Checkout />
       </Container>
     </div>
   );

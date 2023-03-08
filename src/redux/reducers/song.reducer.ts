@@ -1,10 +1,11 @@
-import { FAV_SONGS, GET_INITIAL_SONG } from "../Types";
+import { FAV_SONGS, GET_INITIAL_SONG, GET_SEARCH_SONG } from "../Types";
 
 let favs = localStorage.getItem("music-app-fav");
 
 const initialState = {
   song: null,
   favorite: favs ? JSON.parse(favs) : [],
+  search: null,
 };
 
 const songReducer = (
@@ -17,6 +18,11 @@ const songReducer = (
       return {
         ...state,
         song: { ...payload },
+      };
+    case GET_SEARCH_SONG:
+      return {
+        ...state,
+        search: { ...payload },
       };
 
     case FAV_SONGS:
