@@ -11,14 +11,20 @@
   background: var(--light) !important;
   position: fixed;
   z-index: 2;
-  right: 0;
+  right: -102vw;
   top: 0;
   bottom: 0;
   box-shadow: 20px 20px 40px 20px #00000070;
+  transition: 0.5s all ease-in-out;
+}
+
+.wrapper.active {
+  right: 0 !important;
+  transition: 0.5s all ease-in-out;
 }
 
 .heading {
-  background: -webkit-linear-gradient(#007bf7, #6f00ff);
+  background: linear-gradient(to right, #1fa2ff 0%, #12d8fa 51%, #1fa2ff 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -63,4 +69,18 @@
   color: #fff;
   text-decoration: none;
   cursor: pointer;
+}
+
+.list__item:hover {
+  cursor: pointer;
+}
+
+.list__item:global(.active) {
+  background: linear-gradient(
+    to right,
+    #1fa2ff 0%,
+    #12d8fa 51%,
+    #1fa2ff 100%
+  ) !important;
+  border: none !important;
 }

@@ -16,7 +16,7 @@ const initialState = {
 };
 
 const setPlToLocalStorage = (data: any) => {
-  localStorage.setItem("music-app-pl", data);
+  localStorage.setItem("music-app-pl", JSON.stringify(data));
 };
 
 const playlistReducer = (
@@ -29,7 +29,7 @@ const playlistReducer = (
       let newId = state.playlist.length + 1;
       let tmpPlaylist = [
         ...state.playlist,
-        { name: `Your Playlist ${newId}`, id: newId, tracks: [] },
+        { name: payload, id: newId, tracks: [] },
       ];
       setPlToLocalStorage(tmpPlaylist);
       return {
@@ -51,6 +51,7 @@ const playlistReducer = (
           pl.id === payload.id ? { ...payload } : pl
         ),
       ];
+      console.log(editedPL);
       setPlToLocalStorage(editedPL);
       return {
         ...state,

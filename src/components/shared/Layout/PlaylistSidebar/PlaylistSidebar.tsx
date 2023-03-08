@@ -1,22 +1,57 @@
-import { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Container, Form, ListGroup } from "react-bootstrap";
 import { AiOutlineClose } from "react-icons/ai";
 import { connect } from "react-redux";
-import { playlistSidebarToggle } from "../../../../redux/actions/playlist.action";
+import { toast } from "react-toastify";
+import {
+  createPlaylist,
+  playlistSidebarToggle,
+  savePlaylist,
+} from "../../../../redux/actions/playlist.action";
 import styles from "./PlaylistSidebar.module.css";
+import TrackCard from "./TrackCard/TrackCard";
 
-type Props = { playlist: any; playlistSidebarToggle: any };
-
-const PlaylistSidebar = ({ playlist, playlistSidebarToggle }: Props) => {
+const PlaylistSidebar = ({
+  playlist,
+  playlistSidebarToggle,
+  createPlaylist,
+  savePlaylist,
+}: any) => {
+  const [selectedPlaylist, setSelectedPlaylist] = useState<number>(-1);
   const [showCreate, setShowCreate] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
+
+  useEffect(() => {
+    setSelectedPlaylist(-1);
+  }, []);
+
   const showCreateHandeler = () => {
     // LOGIC FOR STRIPE
-    setShowCreate(!showCreate);
+    setShowCreate(true);
   };
 
   const submitHandeler = (e: any) => {
     e.preventDefault();
+    if (name === "") {
+      toast.error("Please enter playlist name!");
+      return;
+    }
+    createPlaylist(name);
+    setShowCreate(false);
+    setName("");
+  };
+
+  const savePlaylistHandeler = () => {
+    if (selectedPlaylist !== -1) {
+      savePlaylist(
+        playlist?.playlist
+          .filter((pl: any) => pl.id === selectedPlaylist)
+          .map((pl: any) => ({
+            ...pl,
+            tracks: [...pl.tracks, playlist.selected_track],
+          }))
+      );
+    }
   };
   return (
     <div
@@ -35,7 +70,7 @@ const PlaylistSidebar = ({ playlist, playlistSidebarToggle }: Props) => {
         </div>
         {playlist.selected_track ? (
           <>
-            <span>{playlist.selected_track.title}</span>
+            <TrackCard data={playlist.selected_track} />
             <hr />
           </>
         ) : (
@@ -43,30 +78,59 @@ const PlaylistSidebar = ({ playlist, playlistSidebarToggle }: Props) => {
         )}
 
         <h3 className={styles.heading}>Select Playlist</h3>
-        {playlist.playlist.map((pl: any) => (
-          <span>{pl.name}</span>
-        ))}
-
+        <ListGroup>
+          {playlist.playlist.map((pl: any) => (
+            <ListGroup.Item
+              key={pl.id}
+              className={styles.list__item}
+              active={selectedPlaylist === pl.id}
+              onClick={() =>
+                setSelectedPlaylist(selectedPlaylist !== pl.id ? pl.id : -1)
+              }
+            >
+              {pl.name}
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
         <hr />
-
-        <button onClick={showCreateHandeler} className={styles.btn}>
-          Create New Playlist
-        </button>
-        <Form onSubmit={submitHandeler}>
-          <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Playlist Name</Form.Label>
-            <Form.Control
-              value={name}
-              onChange={(e: any) => setName(e.target.value)}
-              type="name"
-              placeholder="Your new playlist"
-            />
-          </Form.Group>
-
-          <button type="submit" className={styles.btn}>
-            Create
-          </button>
-        </Form>
+        {showCreate ? (
+          <Form onSubmit={submitHandeler}>
+            <Form.Group className="mb-3" controlId="name">
+              <Form.Label>Playlist Name</Form.Label>
+              <Form.Control
+                value={name}
+                onChange={(e: any) => setName(e.target.value)}
+                type="name"
+                placeholder="Your new playlist"
+              />
+            </Form.Group>
+            <div className="d-flex justify-content-between align-items-center">
+              <button type="submit" className={styles.btn}>
+                Create
+              </button>
+              <button
+                type="reset"
+                onClick={() => setShowCreate(false)}
+                className={styles.btn}
+              >
+                Cancel
+              </button>
+            </div>
+          </Form>
+        ) : (
+          <div className="d-flex justify-content-between align-items-center">
+            {selectedPlaylist !== -1 ? (
+              <button onClick={savePlaylistHandeler} className={styles.btn}>
+                Save
+              </button>
+            ) : (
+              <></>
+            )}
+            <button onClick={showCreateHandeler} className={styles.btn}>
+              Create New Playlist
+            </button>
+          </div>
+        )}
       </Container>
     </div>
   );
@@ -74,6 +138,8 @@ const PlaylistSidebar = ({ playlist, playlistSidebarToggle }: Props) => {
 const mapStateToProps = (state: any) => ({
   playlist: state.playlist,
 });
-export default connect(mapStateToProps, { playlistSidebarToggle })(
-  PlaylistSidebar
-);
+export default connect(mapStateToProps, {
+  playlistSidebarToggle,
+  createPlaylist,
+  savePlaylist,
+})(PlaylistSidebar);
